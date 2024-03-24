@@ -5,7 +5,7 @@ from src.logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
-
+from db_connector import get_db_engine
 
 @dataclass
 class DataIngestionConfig :
@@ -20,8 +20,10 @@ class DataIngestion :
     def initiate_data_ingestion(self) :
         logging.info("Entered the data ingestion component")
         try :
-            df = pd.read_csv('data\\stud.csv')
-            logging.info('Read the dataset as dataframe')
+            engine = get_db_engine()
+            logging.info('Established connection with MySQL Database.')
+            df = pd.read_sql('SELECT * FROM student_info', con=engine)
+            logging.info('Read the dataset from the MySQL Database.')
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
@@ -32,12 +34,14 @@ class DataIngestion :
             test_set.to_csv(self.ingestion_config.test_data_path, index = False, header = True)
             
             logging.info('Ingestion of the data is completed.')
-
+            engine.dispose()
+            logging.info('Database connection closed.')
             return (
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path
             )
         except Exception as e :
+            logging.error(f"An error occurred during data ingestion: {e}")
             raise CustomException(e,sys)
         
 if __name__=="__main__" :
