@@ -8,4 +8,5 @@ xgboost
 SQLAlchemy
 mysql-connector-python
 dill
+dataclasses
 # -e .
