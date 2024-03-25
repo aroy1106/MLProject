@@ -7,4 +7,5 @@ catboost
 xgboost
 SQLAlchemy
 mysql-connector-python
+dill
 # -e .
