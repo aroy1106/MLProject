@@ -9,4 +9,5 @@ SQLAlchemy
 mysql-connector-python
 dill
 Flask
+gunicorn
 # -e .
