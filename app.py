@@ -17,9 +17,9 @@ def index():
 def predict_datapoint():
     if request.method == 'GET':
         return render_template('home.html')
-    else:
+    else: 
         data = CustomData(
-            gender=request. form.get('gender'),
+            gender=request.form.get('gender'),
             race_ethnicity=request.form.get('ethnicity'),
             parental_level_of_education=request.form.get('parental_level_of_education'),
             lunch=request.form.get('lunch'),
@@ -31,7 +31,7 @@ def predict_datapoint():
         print(pred_df)
 
         predict_pipeline = PredictPipeline()
-        results = predict_pipeline = predict_pipeline.predict(pred_df)
+        results = predict_pipeline.predict(pred_df)
 
         return render_template('home.html',results = results[0])
 
