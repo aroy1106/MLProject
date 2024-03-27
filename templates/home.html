@@ -1,4 +1,4 @@
-<html>
+<!-- <html>
 
 <body>
     <div class="login">
@@ -109,5 +109,44 @@
         </h2>
 
         <body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div class="login">
+        <h1>Student Exam Performance Indicator</h1>
+
+        <form action="{{ url_for('predict_datapoint')}}" method="post">
+            <h1>
+                <legend>Student Exam Performance Prediction</legend>
+            </h1>
+            <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <select class="form-control" name="gender" placeholder="Enter you Gender" required>
+                    <option class="placeholder" selected disabled value="">Select your Gender</option>
+                    <option value="male">
+                        Male
+                    </option>
+                    <option value="female">
+                        Female
+                    </option>
+                </select>
+            </div>
+            <!-- Other form fields -->
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Predict your Maths Score" required />
+            </div>
+        </form>
+        <!-- Display prediction result -->
+        <h2>
+            {% if results %}
+            The prediction is {{ results }}
+            {% endif %}
+        </h2>
+    </div>
+</body>
 
 </html>
